@@ -1,6 +1,6 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
@@ -13,7 +13,8 @@ void get_random_bytes(void *buf, size_t len)
 		exit(-1);
 	}
 
-	if ((fp = fopen("/dev/urandom", "r")) < 0) {
+	fopen_s(&fp, "/dev/urandom", "r");
+	if (fp < 0) {
 		printf("invalid paremeters\n");
 		exit(-1);
 	}
@@ -28,15 +29,14 @@ void get_random_bytes(void *buf, size_t len)
 
 int main(int argc, char const *argv[])
 {
-    unsigned int buf[8] = {0};
+	unsigned int buf[8] = { 0 };
 
-    get_random_bytes(buf, sizeof(buf));
-    
-    for(size_t i = 0; i < ARRAY_SIZE(buf); i++)
-    {
-        printf("0x%0*x ", (int)sizeof(buf[i]) * 2, buf[i]);
-    }
-    printf("\n");
-    
+	get_random_bytes(buf, sizeof(buf));
+
+	for (size_t i = 0; i < ARRAY_SIZE(buf); i++) {
+		printf("0x%0*x ", (int)sizeof(buf[i]) * 2, buf[i]);
+	}
+	printf("\n");
+
 	return 0;
 }
