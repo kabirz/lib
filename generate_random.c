@@ -1,9 +1,9 @@
+#define _CRT_SECURE_NO_DEPRECATE
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-
 void get_random_bytes(void *buf, size_t len)
 {
 	FILE *fp = NULL;
@@ -13,8 +13,8 @@ void get_random_bytes(void *buf, size_t len)
 		exit(-1);
 	}
 
-	fopen_s(&fp, "/dev/urandom", "r");
-	if (fp < 0) {
+	
+	if ((fp=fopen("/dev/urandom", "r"))< 0) {
 		printf("invalid paremeters\n");
 		exit(-1);
 	}
@@ -29,7 +29,7 @@ void get_random_bytes(void *buf, size_t len)
 
 int main(int argc, char const *argv[])
 {
-	unsigned int buf[8] = { 0 };
+	unsigned char buf[8] = { 0 };
 
 	get_random_bytes(buf, sizeof(buf));
 
