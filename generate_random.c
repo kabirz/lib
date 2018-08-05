@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
 	get_random_bytes(buf, sizeof(buf));
 
 	for (size_t i = 0; i < ARRAY_SIZE(buf); i++) {
-		printf("0x%0*x ", (int)sizeof(buf[i]) * 2, buf[i]);
+		printf("%#0*x ", (int)sizeof(buf[i]) * 2, buf[i]);
 	}
 	printf("\n");
 
